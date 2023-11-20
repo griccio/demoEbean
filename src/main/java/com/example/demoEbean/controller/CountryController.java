@@ -28,97 +28,74 @@ public class CountryController {
     @GetMapping("/countries")
     public String showCountryList(Model theModel) {
 
-        //create a continentList of DTO
+        //create a countryList of DTO
         List<Country> countryList = countryService.findAllWithContinent();
 
-        //add continentList to the model
+        //add countryList to the model
         theModel.addAttribute("countryList", countryList);
 
         return "country/list";
     }
 
-//
-//    @GetMapping("/continent")
-//    public String showContinentForm(Model theModel) {
-//
-//        //create a new continent
-//        Continent theContinent= new Continent();
-//
-//        //add continent to the model
-//        theModel.addAttribute("continent", theContinent);
-//
-//        return "continent/continent";
-//    }
-//
-//
-//    @PostMapping("/country")
-//    public String saveCountry(@Valid @ModelAttribute("country") Country country, BindingResult bindingResult) {
-//
-//        if (bindingResult.hasErrors())
-//            return "redirect:/country";
-//        else {
-//            try {
-//
-//                if(country.getId() == null)
-//                 countryService.save(country);
-//                else
-//                    countryService.update(country);
-//
-//                return "redirect:/countries";
-//            }catch(Exception e){
-//                return "redirect:/country";
-//            }
-//        }
-//    }
 
-    @PutMapping("/country")
-    public String updateCountry() {
-    return "HELLO";
+    @GetMapping("/country")
+    public String showCountryForm(Model theModel) {
+
+        //create a new country
+        Country theCountry= new Country();
+
+        //add country to the model
+        theModel.addAttribute("country", theCountry);
+
+        return "country/country";
     }
 
 
 
 
 
+    @PostMapping("/country")
+    public String saveCountry(@Valid @ModelAttribute("country") Country country, BindingResult bindingResult) {
 
-//    @GetMapping("/country")
-//    public String showContinentFormForUpdate(@RequestParam("countryId") Long id, Model model) {
-//        Country country = countryService.findById(id);
-//        //add continent to the model
-//        model.addAttribute("country", country);
-//
-//        return "country/country";
-//    }
-//
-//    @PutMapping("/country")
-//    public String updateContinent(@Valid @ModelAttribute("country") Country country, BindingResult bindingResult){
-//        if(bindingResult.hasErrors())
-//            return "country/country";
-//        else {
-//            countryService.update(country);
-//            return "redirect:/showCountryList";
-//        }
-//    }
-//
-//    @GetMapping("/continent/delete")
-//    public String deleteContinent(@RequestParam("countryId") Long id){
-//    try{
-//        Country country = countryService.findById(id);
-//        countryService.delete(country);
-//    }catch(Exception e){
-//        System.out.println(e);
-//    }
-//
-//        return "redirect:/continents";
-//    }
-//
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Country> findContinentById(@PathVariable Long id) {
-//        try {
-//            return ResponseEntity.ok(countryService.findById(id));
-//        } catch (CountryException e) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-//        }
-//    }
+        if (bindingResult.hasErrors())
+            return "redirect:/country";
+        else {
+            try {
+
+                if(country.getId() == null)
+                 countryService.save(country);
+                else
+                    countryService.update(country);
+
+                return "redirect:/countries";
+            }catch(Exception e){
+                return "redirect:/country";
+            }
+        }
+    }
+
+    @GetMapping("/country/update")
+    public String showCountryFormForUpdate(@RequestParam("countryId") Long id, Model model) {
+        Country country = countryService.findById(id);
+        //add country to the model
+        model.addAttribute("country", country);
+
+        return "country/country";
+    }
+
+
+    @GetMapping("/country/delete")
+    public String deleteCountry(@RequestParam("countryId") Long id){
+        try{
+            Country country = countryService.findById(id);
+            countryService.delete(country);
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+        return "redirect:/countries";
+    }
+
+
 
 }

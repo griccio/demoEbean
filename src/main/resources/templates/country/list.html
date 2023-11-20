@@ -41,18 +41,9 @@
             <td th:text="${country.name}" class="text-left" />
             <td th:text="${country.continent.name}" class="text-left" />
             <td  class="text-center" >
-
-                <div>
-                    <form action="#"  style="display:inline" method="PUT" th:action="@{/country}" class="needs-validation" novalidate>
-                        <input type="submit" value="update" class="btn btn-info"/>
-                    </form>
-
-
-                    <form action="#"  style="display:inline;" method="DELETE" th:action="@{/country}" th:object="${country}" class="needs-validation" novalidate>
-                      <input type="submit" value="delete" class="btn btn-danger "/>
-                    </form>
-
-                </div>
+                <a th:href="@{/country/update(countryId=${country.id})}" class="btn btn-info"  th:text="update"/>
+                <a th:href="@{/country/delete(countryId=${country.id})}" class="btn btn-danger"
+                   onclick="if(!confirm('Are you sure you wan to to delete this Country?')) return false" th:text="delete"/>
             </td>
         </tr>
         </tbody>
