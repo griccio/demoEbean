@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <title>Continent</title>
+
+</head>
+<body>
+<p class="h3 mb-4"> Continent </p>
+    <form action="#"  method="POST" th:action="@{/continent}" th:object="${continent}" class="row-6 needs-validation" novalidate>
+
+        <input type="hidden" th:field="*{id}">
+
+        <div class="col-md-2">
+            <div class="form-group">
+                <div th:if="${#fields.hasErrors('code')}"
+                     th:errors="*{code}" class="alert alert-danger input-sm mb-0 w-60"></div>
+                <input type="text" th:field="*{code}" th:placeholder="code" size="2" maxlength="2" class="form-control col-sm-5 mb-4 input-default"/>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <div th:if="${#fields.hasErrors('name')}"
+                     th:errors="*{name}" class="alert alert-danger mb-0"></div>
+                <input type="text" th:field="*{name}" th:placeholder="name"   maxlength="100"  class="form-control mb-4"/>
+
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-sm mb-3 ml-15 "/>
+        </div>
+
+
+    </form>
+    <hr>
+    <a th:href="@{/continents}">Back to Continent List</a>
+</body>
+</html>

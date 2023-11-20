@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Country</title>
+</head>
+<body>
+<h3> Country Confirmation </h3>
+
+
+    The Country is :
+    <span th:text=" ' name: ' + ${country.name} + ' code: ' + ${country.code} +' continent: ' +
+    ${country.continent} + ' language: ' + ${country.favoriteLanguage} +
+    ' extraTerritoriality: ' + ${country.extraTerritoriality}"/>
+
+</body>
+</html>
