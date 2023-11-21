@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("")
@@ -23,6 +24,9 @@ public class CountryController {
 
     @Autowired
     CountryService countryService;
+
+    @Autowired
+    ContinentService continentService;
 
 
     @GetMapping("/countries")
@@ -43,6 +47,9 @@ public class CountryController {
 
         //create a new country
         Country theCountry= new Country();
+        theCountry.setContinent(new Continent());
+        List<Continent> continentList = continentService.findAll();
+        theModel.addAttribute("continentList", continentList);
 
         //add country to the model
         theModel.addAttribute("country", theCountry);
@@ -50,6 +57,19 @@ public class CountryController {
         return "country/country";
     }
 
+    @GetMapping("/country/load")
+    public String showCountryForm(@RequestParam("countryId") Long id, Model model) {
+
+        Country theCountry = countryService.findById(id);
+
+        List<Continent> continentList = continentService.findAll();
+        model.addAttribute("continentList", continentList);
+
+        //add country to the model
+        model.addAttribute("country", theCountry);
+
+        return "country/country";
+    }
 
 
 
@@ -60,11 +80,30 @@ public class CountryController {
         if (bindingResult.hasErrors())
             return "redirect:/country";
         else {
+
             try {
 
                 if(country.getId() == null)
+
                  countryService.save(country);
                 else
+                    countryService.update(country);
+
+                return "redirect:/countries";
+            }catch(Exception e){
+                return "redirect:/country";
+            }
+        }
+    }
+
+    @PutMapping("/country")
+    public String updateCountry(@Valid @ModelAttribute("country") Country country, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors())
+            return "redirect:/country";
+        else {
+
+            try {
                     countryService.update(country);
 
                 return "redirect:/countries";

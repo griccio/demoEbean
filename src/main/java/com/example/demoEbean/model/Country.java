@@ -22,9 +22,6 @@ public class Country extends Geography{
 
     @ManyToOne
     @JoinColumn(name = "continent_id")
-
-
-
     private Continent continent;
 
     public Continent getContinent() {
